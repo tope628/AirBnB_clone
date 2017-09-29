@@ -7,18 +7,25 @@ import datetime
 
 
 class BaseModel:
-    '''class: Base_model
+    '''class: BaseModel
     base model for AirBnB Clone
     '''
 
     def __init__(self, *args, **kwargs):
         '''method: __init__
-        initializes instance of class Base_model
+        initializes instance of class BaseModel
         '''
-        self.id = uuid.uuid4()
-        time_stamp = datetime.datetime.now()
-        self.created_at = time_stamp
-        self.updated_at = time_stamp
+        if len(kwargs) > 0: # if kwargs exist, then load kwargs into __dict__
+            self.__dict__.update(kwargs)
+            self.created_at = datetime.datetime.strptime(self.created_at,
+                                                '%Y-%m-%dT%H:%M:%S.%f')
+            self.updated_at = datetime.datetime.strptime(self.updated_at,
+                                                '%Y-%m-%dT%H:%M:%S.%f')
+        else: # if no kwargs, then this is inits a new object                
+            self.id = uuid.uuid4()
+            time_stamp = datetime.datetime.now()
+            self.created_at = time_stamp
+            self.updated_at = time_stamp
 
     def __str__(self):
         '''method: __str__
