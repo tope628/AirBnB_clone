@@ -21,8 +21,9 @@ class BaseModel:
                                                 '%Y-%m-%dT%H:%M:%S.%f')
             self.updated_at = datetime.datetime.strptime(self.updated_at,
                                                 '%Y-%m-%dT%H:%M:%S.%f')
+            del self.__dict__["__class__"]
         else: # if no kwargs, then this is inits a new object                
-            self.id = uuid.uuid4()
+            self.id = str(uuid.uuid4())
             time_stamp = datetime.datetime.now()
             self.created_at = time_stamp
             self.updated_at = time_stamp
@@ -39,7 +40,7 @@ class BaseModel:
         '''method: save
         info to fill in here
         '''
-        pass
+        self.updated_at = datetime.datetime.now()
 
     def to_dict(self):
         '''method: to_dict
@@ -53,9 +54,10 @@ class BaseModel:
         TODO: something, there will certainly be something to fix!!!
         '''
         new_dict = {}
-        print("debug: self.__dict__:{}".format(self.__dict__))
+        #print("debug: self.__dict__:{}".format(self.__dict__))
         for key, val in self.__dict__.items():
             new_dict[key] = val
+        new_dict["__class__"] = self.__class__.__name__    
         new_dict["created_at"] = self.__dict__['created_at'].isoformat()
         new_dict["updated_at"] = self.__dict__['updated_at'].isoformat()
-        return new_dict
+        return new_dict 
