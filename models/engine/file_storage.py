@@ -5,11 +5,12 @@ this module contains the FileStorage class
 from models.base_model import BaseModel
 import json
 
+
 class FileStorage:
     '''class: FileStorage
     class for implementing persistant storage of JSON formatted data
     __file_path: string name of file path
-    __objects: empty di$ct to be populated by string representation of
+    __objects: empty dict to be populated by string representation of
         objects as follows:
         key: string = <class-name>.id
         value = JSON representation of an object
@@ -19,7 +20,8 @@ class FileStorage:
     __objects = {}
 
     def __init__(self, *args, **kwargs):
-        '''method: __init__
+        '''
+        method: __init__
         initializes instance of class FileStorage
         '''
         pass
@@ -44,8 +46,8 @@ class FileStorage:
         (path = __file_path)
         '''
         new_dict = {}
-        for key in self.__objects:
-            new_dict[key]  = self.__objects[key].to_dict()
+        for key, value in self.__objects.items():
+            new_dict[key] = value.to_dict()
         json_str = json.dumps(new_dict)
         with open(self.__file_path, mode='w', encoding='utf-8') as f:
             f.write(json_str)
