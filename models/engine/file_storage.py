@@ -46,10 +46,13 @@ class FileStorage:
         (path = __file_path)
         '''
         new_dict = {}
-        for key in self.__objects:
-            new_dict[key] = self.__objects[key].to_dict()
+        for key, value in self.__objects.items():
+            new_dict[key] = value.to_dict()
         json_str = json.dumps(new_dict)
-        with open(self.__file_path, mode='a', encoding='utf-8') as f:
+        print('---debug: FileStorage.save()---')
+        print('json_str:')
+        print(json_str)
+        with open(self.__file_path, mode='w', encoding='utf-8') as f:
             f.write(json_str)
 
     def reload(self):
@@ -60,8 +63,8 @@ class FileStorage:
         try:
             with open(self.__file_path, mode='r', encoding='utf-8') as f:
                 dict_from_json = json.load(f)
-                for k, v in dict_from_json.items():
-                    new_obj = BaseModel(**v)
-                    self.__objects[k] = new_obj
+            for k, v in dict_from_json.items():
+                new_obj = BaseModel(**v)
+                self.__objects[k] = new_obj
         except FileNotFoundError:
             return
