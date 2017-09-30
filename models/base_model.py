@@ -4,6 +4,8 @@ this module contains the class base_model
 '''
 import uuid
 import datetime as DT
+#from models import storage
+import models
 
 
 class BaseModel:
@@ -27,6 +29,7 @@ class BaseModel:
             time_stamp = DT.datetime.now()
             self.created_at = time_stamp
             self.updated_at = time_stamp
+            models.storage.new(self.__dict__)
 
     def __str__(self):
         '''method: __str__
@@ -41,6 +44,7 @@ class BaseModel:
         info to fill in here
         '''
         self.updated_at = datetime.datetime.now()
+        models.storage.save()
 
     def to_dict(self):
         '''method: to_dict

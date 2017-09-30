@@ -2,8 +2,8 @@
 '''module: file_storage
 this module contains the FileStorage class
 '''
+from models.base_model import BaseModel
 import json
-import datetime as DT
 
 class FileStorage:
     '''class: FileStorage
@@ -43,11 +43,10 @@ class FileStorage:
         serializes __objects to the JSON file
         (path = __file_path)
         '''
-        for key, value in self.__objects.items():
-            for k, v in value.items():
-                if isinstance(v, DT.datetime):
-                  FileStorage.__object[key][k] = v.isoformat()
-        json_str = json.dumps(self.__objects)
+        new_dict = {}
+        for key in self.__objects:
+            new_dict[key]  = self.__objects[key].to_dict()
+        json_str = json.dumps(new_dict)
         with open(__file_path, mode='w', encoding='utf-8') as f:
             f.write(json_str)
 
