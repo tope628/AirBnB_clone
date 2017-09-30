@@ -2,7 +2,8 @@
 '''module: file_storage
 this module contains the FileStorage class
 '''
-
+import json
+import datetime as DT
 
 class FileStorage:
     '''class: FileStorage
@@ -14,7 +15,7 @@ class FileStorage:
         value = JSON representation of an object
     '''
 
-    __file_path = ""
+    __file_path = "file.json"
     __objects = {}
 
     def __init__(self, *args, **kwargs):
@@ -27,25 +28,37 @@ class FileStorage:
         '''method: all
         returns the dictionary __objects
         '''
-        pass
+        return self.__objects
 
     def new(self, obj):
         '''method: new
         places into __objects the obj with this key:
             <obj class name>.id
         '''
-        pass
+        key = str(obj.__class__.__name__) + "." + str(obj["id"])
+        self.__objects[key] = obj
 
     def save(self):
         '''method: self
         serializes __objects to the JSON file
         (path = __file_path)
         '''
-        pass
+        for key, value in self.__objects.items():
+            for k, v in value.items():
+                if isinstance(v, DT.datetime):
+                  FileStorage.__object[key][k] = v.isoformat()
+        json_str = json.dumps(self.__objects)
+        with open(__file_path, mode='w', encoding='utf-8') as f:
+            f.write(json_str)
 
     def reload(self):
         '''method: reload
         deserializes the JSON file to __objects, but only
         if JSON file exists, otherwise do nothing)
         '''
-        pass
+        try:
+            with open(__filepath, mode='r', encoding='utf-8') as f:
+                json_str = json.loads()
+            print (json_str)
+        except:
+            json_str = "debug"
