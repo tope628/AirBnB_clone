@@ -9,7 +9,7 @@ class FileStorage:
     '''class: FileStorage
     class for implementing persistant storage of JSON formatted data
     __file_path: string name of file path
-    __objects: empty di$ct to be populated by string representation of
+    __objects: empty dict to be populated by string representation of
         objects as follows:
         key: string = <class-name>.id
         value = JSON representation of an object
@@ -18,11 +18,13 @@ class FileStorage:
     __file_path = "file.json"
     __objects = {}
 
+    '''
     def __init__(self, *args, **kwargs):
-        '''method: __init__
+        method: __init__
         initializes instance of class FileStorage
-        '''
+ 
         pass
+    '''
 
     def all(self):
         '''method: all
@@ -56,8 +58,9 @@ class FileStorage:
         if JSON file exists, otherwise do nothing)
         '''
         try:
-            with open(self.__filepath, mode='r', encoding='utf-8') as f:
-                from_json = json.load(f)
-            return from_json
-        except:
-            pass
+            with open(self.__file_path, mode='r', encoding='utf-8') as f:
+                dict_from_json = json.load(f)
+                for k, v in dict_from_json.items():
+                    self.__objects[k] = v
+        except FileNotFoundError:
+            return
