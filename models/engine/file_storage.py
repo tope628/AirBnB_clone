@@ -35,7 +35,7 @@ class FileStorage:
         places into __objects the obj with this key:
             <obj class name>.id
         '''
-        key = str(obj.__class__.__name__) + "." + str(obj["id"])
+        key = obj.__class__.__name__ + "." + obj.id
         self.__objects[key] = obj
 
     def save(self):
@@ -47,7 +47,7 @@ class FileStorage:
         for key in self.__objects:
             new_dict[key]  = self.__objects[key].to_dict()
         json_str = json.dumps(new_dict)
-        with open(__file_path, mode='w', encoding='utf-8') as f:
+        with open(self.__file_path, mode='a', encoding='utf-8') as f:
             f.write(json_str)
 
     def reload(self):
@@ -56,8 +56,8 @@ class FileStorage:
         if JSON file exists, otherwise do nothing)
         '''
         try:
-            with open(__filepath, mode='r', encoding='utf-8') as f:
-                json_str = json.loads()
-            print (json_str)
+            with open(self.__filepath, mode='r', encoding='utf-8') as f:
+                from_json = json.load(f)
+            return from_json
         except:
-            json_str = "debug"
+            pass
