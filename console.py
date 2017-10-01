@@ -32,7 +32,6 @@ class HBNBCommand(cmd.Cmd):
             print(new_obj.id)
         except:
             print("** class doesn't exist **")
-
     def do_show(self, args):
         """ show string representation of an instance """
         list_args = args.split()
@@ -41,18 +40,27 @@ class HBNBCommand(cmd.Cmd):
         if len(list_args) == 0:
             print("** class name missing **")
             return False
-        if len(list_args) == 1 or list_args[1] is None:
-            print("** instance id  missing **")
-            return False
-        try:
-            key = list_args[0] +  "." + list_args[1]
-            one_obj = all_objs[key]
-            print(one_obj)
-        except Exception as e:
-            print(e)
-        #except:
-         #   print("** class doesn't exist **")
-
+        if list_args[0]  in all_objs:
+            if len(list_args) > 1:
+                key = list_args[0] +  "." + list_args[1]
+                if key in all_objs:
+                    one_obj = all_objs[key]
+                    print(one_obj)
+                else:
+                    print("** no instance found **")
+            else:
+                print("** instance id  missing **")
+        else:
+            print("** class doesn't exist **")
+#        if list_args[1] not in all_objs:
+#            print("** no instance found **")
+#            return False
+#        try:
+#            key = list_args[0] +  "." + list_args[1]
+#            one_obj = all_objs[key]
+#            print(one_obj)
+#        except:
+#            pass
 
 
 
