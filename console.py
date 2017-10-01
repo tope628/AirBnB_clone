@@ -4,6 +4,7 @@ import cmd
 import models
 from models.base_model import BaseModel
 
+
 class HBNBCommand(cmd.Cmd):
     """ cmd class """
     prompt = '(hbnb)'
@@ -22,27 +23,46 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, *args):
         """create new instance of BaseModel """
-        if len(args[0]) == 0:
-            print("** class name missing **")
-            return False
-        try:
-            classname = args[0]
-            new_obj = eval(classname)()
-            new_obj.save()
-            print(new_obj.id)
-        except:
-            print("** class doesn't exist **")
-    def do_show(self, args):
-        """ show string representation of an instance """
-        list_args = args.split()
-        all_objs = models.storage.all()
-        print(list_args)
+        # print(args)
+        # print(type(args))
+        list_args = args[0].split()
+        # print(list_args)
         if len(list_args) == 0:
             print("** class name missing **")
             return False
-        if list_args[0]  in all_objs:
+
+        classname = list_args[0]
+        try:
+            new_obj = eval(classname)()
+            new_obj.save()
+            print(new_obj.id)
+        except NameError:
+            print("** class doesn't exist **")
+
+    def do_show(self, args):
+        """ show string representation of an instance """
+        list_args = args.split()
+        # print ("list_args: {}".format(list_args))
+        all_objs = models.storage.all()
+        # print("all_obs: {}".format(str(type(all_objs))))
+        # print(all_objs)
+        if len(list_args) == 0:
+            print("** class name missing **")
+            return False
+
+        all_classes = []
+        for obj in all_objs:
+            # print("----------")
+            # print(obj)
+            # print(all_objs[obj])
+            a_class = obj.split(".")[0]
+            if a_class not in all_classes:
+                all_classes.append(a_class)
+        # print("all_classes: {}".format(all_classes))
+
+        if list_args[0] in all_classes:
             if len(list_args) > 1:
-                key = list_args[0] +  "." + list_args[1]
+                key = list_args[0] + "." + list_args[1]
                 if key in all_objs:
                     one_obj = all_objs[key]
                     print(one_obj)
@@ -52,22 +72,13 @@ class HBNBCommand(cmd.Cmd):
                 print("** instance id  missing **")
         else:
             print("** class doesn't exist **")
-#        if list_args[1] not in all_objs:
-#            print("** no instance found **")
-#            return False
-#        try:
-#            key = list_args[0] +  "." + list_args[1]
-#            one_obj = all_objs[key]
-#            print(one_obj)
-#        except:
-#            pass
 
-
-
-
-
-
-
+	def do_destroy(self, args):
+		'''method: do_delete
+		delete an object based on class name and id and update change to file
+		'''
+		list_args = args.split()
+		
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
