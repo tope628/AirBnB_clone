@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ command module """
 import cmd
+import models
 from models.base_model import BaseModel
 
 class HBNBCommand(cmd.Cmd):
@@ -31,6 +32,27 @@ class HBNBCommand(cmd.Cmd):
             print(new_obj.id)
         except:
             print("** class doesn't exist **")
+
+    def do_show(self, args):
+        """ show string representation of an instance """
+        list_args = args.split()
+        all_objs = models.storage.all()
+        print(list_args)
+        if len(list_args) == 0:
+            print("** class name missing **")
+            return False
+        if len(list_args) == 1 or list_args[1] is None:
+            print("** instance id  missing **")
+            return False
+        try:
+            key = list_args[0] +  "." + list_args[1]
+            one_obj = all_objs[key]
+            print(one_obj)
+        except Exception as e:
+            print(e)
+        #except:
+         #   print("** class doesn't exist **")
+
 
 
 
