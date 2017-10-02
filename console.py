@@ -40,7 +40,7 @@ class HBNBCommand(cmd.Cmd):
         """ show string representation of an instance """
         list_args = args.split()
         all_objs = models.storage.all()
-		all_classes = models.storage.all_classes()
+        all_classes = models.storage.all_classes()
 
         if len(list_args) == 0:
             print("** class name missing **")
@@ -65,7 +65,7 @@ class HBNBCommand(cmd.Cmd):
         '''
         list_args = args.split()
         all_objs = models.storage.all()
-		all_classes = models.storage.all_classes()
+        all_classes = models.storage.all_classes()
 
         if len(list_args) == 0:
             print("** class name missing **")
@@ -92,7 +92,7 @@ class HBNBCommand(cmd.Cmd):
         '''
         list_args = args.split()
 
-        all_classes = models.storage.all_classes() # first use of this method
+        all_classes = models.storage.all_classes()  # first use of this method
         all_objs = models.storage.all()
 
         if len(list_args) > 1:
