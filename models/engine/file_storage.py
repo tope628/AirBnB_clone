@@ -32,6 +32,17 @@ class FileStorage:
         '''
         return self.__objects
 
+    def all_classes(self):
+        '''method: all_classes
+        returns list of all classes of objects in __objects
+        '''
+        classes = []
+        for obj in self.__objects:
+            a_class = obj.split(".")[0]
+            if a_class not in classes:
+                classes.append(a_class)
+        return classes
+
     def new(self, obj):
         '''method: new
         places into __objects the obj with this key:

@@ -40,16 +40,11 @@ class HBNBCommand(cmd.Cmd):
         """ show string representation of an instance """
         list_args = args.split()
         all_objs = models.storage.all()
+		all_classes = models.storage.all_classes()
+
         if len(list_args) == 0:
             print("** class name missing **")
             return False
-
-        # build list of all classes of objects in storage
-        all_classes = []
-        for obj in all_objs:
-            a_class = obj.split(".")[0]
-            if a_class not in all_classes:
-                all_classes.append(a_class)
 
         if list_args[0] in all_classes:
             if len(list_args) > 1:
@@ -70,16 +65,11 @@ class HBNBCommand(cmd.Cmd):
         '''
         list_args = args.split()
         all_objs = models.storage.all()
+		all_classes = models.storage.all_classes()
+
         if len(list_args) == 0:
             print("** class name missing **")
             return False
-
-        # build list of all classes of objects in storage
-        all_classes = []
-        for obj in all_objs:
-            a_class = obj.split(".")[0]
-            if a_class not in all_classes:
-                all_classes.append(a_class)
 
         if list_args[0] in all_classes:
             if len(list_args) > 1:
@@ -102,14 +92,8 @@ class HBNBCommand(cmd.Cmd):
         '''
         list_args = args.split()
 
-        all_classes = []
+        all_classes = models.storage.all_classes() # first use of this method
         all_objs = models.storage.all()
-
-        # build list of all classes of objects in storage
-        for obj in all_objs:
-            a_class = obj.split(".")[0]
-            if a_class not in all_classes:
-                all_classes.append(a_class)
 
         if len(list_args) > 1:
             print("**class doesn't exist **")
@@ -126,6 +110,13 @@ class HBNBCommand(cmd.Cmd):
                 a_class = obj.split(".")[0]
                 if a_class == list_args[0]:
                     print(all_objs[obj])
+
+    def do_update(self, args):
+        '''command: update <class> <UUID> <key> <value>
+        update object specified by <class> and <UUID> by adding or updating
+        an attribute specified by <key> <value>
+        '''
+        list_args = args.split()
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
