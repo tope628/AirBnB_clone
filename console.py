@@ -36,11 +36,11 @@ class HBNBCommand(cmd.Cmd):
         """ show string representation of an instance """
         list_args = args.split()
         all_objs = models.storage.all()
-        print(list_args)
         if len(list_args) == 0:
             print("** class name missing **")
             return False
-        if list_args[0]  in all_objs:
+        print(**(all_objs))
+        if list_args[0]  in ((all_objs).values()):
             if len(list_args) > 1:
                 key = list_args[0] +  "." + list_args[1]
                 if key in all_objs:
