@@ -23,10 +23,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, *args):
         """create new instance of BaseModel """
-        # print(args)
-        # print(type(args))
         list_args = args[0].split()
-        # print(list_args)
         if len(list_args) == 0:
             print("** class name missing **")
             return False
@@ -42,23 +39,17 @@ class HBNBCommand(cmd.Cmd):
     def do_show(self, args):
         """ show string representation of an instance """
         list_args = args.split()
-        # print ("list_args: {}".format(list_args))
         all_objs = models.storage.all()
-        # print("all_obs: {}".format(str(type(all_objs))))
-        # print(all_objs)
         if len(list_args) == 0:
             print("** class name missing **")
             return False
 
+        # build list of all classes of objects in storage
         all_classes = []
         for obj in all_objs:
-            # print("----------")
-            # print(obj)
-            # print(all_objs[obj])
             a_class = obj.split(".")[0]
             if a_class not in all_classes:
                 all_classes.append(a_class)
-        # print("all_classes: {}".format(all_classes))
 
         if list_args[0] in all_classes:
             if len(list_args) > 1:
@@ -74,7 +65,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
 
     def do_destroy(self, args):
-        '''method: do_delete
+        '''destroy: delete specified object from storage
         delete an object based on class name and id and update change to file
         '''
         list_args = args.split()
@@ -103,6 +94,38 @@ class HBNBCommand(cmd.Cmd):
                 print("** instance id  missing **")
         else:
             print("** class doesn't exist **")
+
+    def do_all(self, args):
+        '''command: all <class>
+        print all instances, if class is specified, only print objects of type
+        <class>
+        '''
+        list_args = args.split()
+
+        all_classes = []
+        all_objs = models.storage.all()
+
+        # build list of all classes of objects in storage
+        for obj in all_objs:
+            a_class = obj.split(".")[0]
+            if a_class not in all_classes:
+                all_classes.append(a_class)
+
+        if len(list_args) > 1:
+            print("**class doesn't exist **")
+            return False
+        if len(list_args) != 0 and list_args[0] not in all_classes:
+            print("** class doesn't exist **")
+            return False
+
+        if len(list_args) == 0:  # print all objects, since no class specified
+            for obj in all_objs:
+                print(all_objs[obj])
+        else:  # only print objects matching specified class
+            for obj in all_objs:
+                a_class = obj.split(".")[0]
+                if a_class == list_args[0]:
+                    print(all_objs[obj])
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
