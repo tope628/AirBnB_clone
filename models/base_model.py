@@ -24,7 +24,7 @@ class BaseModel:
             self.updated_at = DT.datetime.strptime(self.updated_at,
                                                    '%Y-%m-%dT%H:%M:%S.%f')
             del self.__dict__["__class__"]
-        else:  # if no kwargs, then this is inits a new object
+        else:  # if no kwargs, then this inits a new object
             self.id = str(uuid.uuid4())
             time_stamp = DT.datetime.now()
             self.created_at = time_stamp
@@ -41,7 +41,8 @@ class BaseModel:
 
     def save(self):
         '''method: save
-        info to fill in here
+        update <updated_at> attribute, then
+        save BaseModel object to storage
         '''
         self.updated_at = DT.datetime.now()
         models.storage.save()
