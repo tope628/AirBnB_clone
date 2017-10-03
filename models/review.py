@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 """ module stores review info for hbnb """
+
 from models.base_model import BaseModel
+
 
 class Review(BaseModel):
     """ review class for airbnb clone """

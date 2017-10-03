@@ -2,6 +2,7 @@
 """ module stores city info for hbnb """
 from models.base_model import BaseModel
 
+
 class City(BaseModel):
     """ city class for airbnb clone """
 

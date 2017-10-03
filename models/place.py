@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 """ module stores place info for hbnb """
+
 from models.base_model import BaseModel
+
 
 class Place(BaseModel):
     """ place class for airbnb clone """
@@ -14,7 +16,7 @@ class Place(BaseModel):
             self.description = ""
             self.number_rooms = 0
             self.number_bathrooms = 0
-            self.max_guest  = 0
+            self.max_guest = 0
             self.price_by_night = 0
             self.latitude = 0.0
             self.longitude = 0.0

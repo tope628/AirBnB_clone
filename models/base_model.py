@@ -4,7 +4,6 @@ this module contains the class base_model
 '''
 import uuid
 import datetime as DT
-#from models import storage
 import models
 
 
@@ -59,7 +58,7 @@ class BaseModel:
         TODO: something, there will certainly be something to fix!!!
         '''
         new_dict = {}
-        #print("debug: self.__dict__:{}".format(self.__dict__))
+        #  print("debug: self.__dict__:{}".format(self.__dict__))
         for key, val in self.__dict__.items():
             new_dict[key] = val
         new_dict["__class__"] = self.__class__.__name__
