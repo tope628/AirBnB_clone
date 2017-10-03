@@ -3,12 +3,7 @@
 import cmd
 import models
 from models.base_model import BaseModel
-from models.user import User
-from models.place import Place
-from models.state import State
-from models.city import City
-from models.amenity import Amenity
-from models.review import Review
+
 
 class HBNBCommand(cmd.Cmd):
     """ cmd class """
@@ -97,7 +92,7 @@ class HBNBCommand(cmd.Cmd):
         '''
         list_args = args.split()
 
-        all_classes = models.storage.all_classes()  # first use of this method
+        all_classes = models.storage.all_classes()
         all_objs = models.storage.all()
 
         if len(list_args) > 1:
@@ -122,6 +117,10 @@ class HBNBCommand(cmd.Cmd):
         an attribute specified by <key> <value>
         '''
         list_args = args.split()
+        all_classes = models.storage.all_classes()
+
+        if len(list_args) == 0:
+            pass
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
