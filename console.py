@@ -117,10 +117,40 @@ class HBNBCommand(cmd.Cmd):
         an attribute specified by <key> <value>
         '''
         list_args = args.split()
+        all_objs = models.storage.all()
         all_classes = models.storage.all_classes()
 
         if len(list_args) == 0:
-            pass
+            print("** class name missing **")
+            return False
+
+        classname = list_args[0]
+        if classname not in all_classes:
+            print("** class doesn't exist **")
+            return False
+
+        if len(list_args) < 2:
+            print("** instance id missing **")
+            return False
+
+        key = "{}.{}".format(list_args[0], list_args[1])
+        if key not in all_objs.keys():
+            print("** no instance found **")
+            return False
+
+        if len(list_args) < 3:
+            print("** attribute name missing **")
+            return False
+        attribute = list_args[2]
+
+        if len(list_args) < 4:
+            print("** value missing **")
+            return False
+        value = list_args[3]
+
+        if attribute not in ("created_at", "updated_at"):
+            all_objs[key].__dict__[attribute] = value
+            all_objs[key].save
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
