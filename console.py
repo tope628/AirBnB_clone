@@ -3,7 +3,12 @@
 import cmd
 import models
 from models.base_model import BaseModel
-
+from models.amenity import Amenity
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.state import State
+from models.user import User
 
 class HBNBCommand(cmd.Cmd):
     """ cmd class """
@@ -21,20 +26,21 @@ class HBNBCommand(cmd.Cmd):
         """Quit command to exit the program """
         return True
 
-    def do_create(self, *args):
-        """create new instance of BaseModel """
-        list_args = args[0].split()
+    def do_create(self, args):
+        """create <class> where <class> is an existing class type"""
+
+        list_args = args.split()
         if len(list_args) == 0:
             print("** class name missing **")
             return False
 
         classname = list_args[0]
-        try:
-            new_obj = eval(classname)()
-            new_obj.save()
-            print(new_obj.id)
-        except NameError:
-            print("** class doesn't exist **")
+        # try:
+        new_obj = eval(classname)()
+        new_obj.save()
+        print(new_obj.id)
+        # except NameError:
+            # print("** class doesn't exist **")
 
     def do_show(self, args):
         """ show string representation of an instance """
@@ -147,6 +153,12 @@ class HBNBCommand(cmd.Cmd):
             print("** value missing **")
             return False
         value = list_args[3]
+
+        print("debug")
+        if key in eval(classname).dict_attrs:
+            print(eval(classname).dict_attrs[key])
+        else:
+            print("{} not in {}".format(key, classname))
 
         if attribute not in ("created_at", "updated_at"):
             all_objs[key].__dict__[attribute] = value

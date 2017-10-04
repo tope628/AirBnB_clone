@@ -6,6 +6,7 @@ from models.base_model import BaseModel
 
 class Review(BaseModel):
     """ review class for airbnb clone """
+    dict_attrs = {"place_id": str, "user_id": str, "text":str}
 
     def __init__(self, *args, **kwargs):
         """initializes review for airbnb clone"""
