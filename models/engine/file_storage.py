@@ -51,7 +51,7 @@ class FileStorage:
 
     def new(self, obj):
         '''method: new
-        places into __objects the obj with this key:
+        places <obj> into __objects with this key:
             <obj class name>.id
         '''
         key = obj.__class__.__name__ + "." + obj.id
