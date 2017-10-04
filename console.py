@@ -139,8 +139,9 @@ class HBNBCommand(cmd.Cmd):
         if len(list_args) < 2:
             print("** instance id missing **")
             return False
+        my_id = list_args[1]
 
-        key = "{}.{}".format(list_args[0], list_args[1])
+        key = "{}.{}".format(classname, my_id)
         if key not in all_objs.keys():
             print("** no instance found **")
             return False
@@ -155,14 +156,10 @@ class HBNBCommand(cmd.Cmd):
             return False
         value = list_args[3]
 
-        print("debug")
-        if key in eval(classname).dict_attrs:
-            print(eval(classname).dict_attrs[key])
-        else:
-            print("{} not in {}".format(key, classname))
+        cast_to_type = eval(classname).dict_attrs[attribute]
 
-        if attribute not in ("created_at", "updated_at"):
-            all_objs[key].__dict__[attribute] = value
+        if attribute not in ("id", "created_at", "updated_at"):
+            all_objs[key].__dict__[attribute] = cast_to_type(value)
             all_objs[key].save
 
 if __name__ == '__main__':
