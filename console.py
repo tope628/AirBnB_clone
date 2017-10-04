@@ -10,6 +10,7 @@ from models.review import Review
 from models.state import State
 from models.user import User
 
+
 class HBNBCommand(cmd.Cmd):
     """ cmd class """
     prompt = '(hbnb)'
@@ -40,7 +41,7 @@ class HBNBCommand(cmd.Cmd):
         new_obj.save()
         print(new_obj.id)
         # except NameError:
-            # print("** class doesn't exist **")
+        #     print("** class doesn't exist **")
 
     def do_show(self, args):
         """ show string representation of an instance """
