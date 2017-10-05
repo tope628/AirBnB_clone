@@ -9,7 +9,7 @@ from models.place import Place
 from models.review import Review
 from models.state import State
 from models.user import User
-classes = ["BaseModel", "User", "City", "Place", "State", "Ameni    ty", "Review"]
+classes = ["BaseModel", "User", "City", "Place", "State", "Amenity", "Review"]
 
 
 class HBNBCommand(cmd.Cmd):
