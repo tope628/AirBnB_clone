@@ -36,7 +36,6 @@ class FileStorage:
         '''method: all
         returns the dictionary __objects
         '''
-        print(self.__objects)
         return self.__objects
 
     def all_classes(self):
