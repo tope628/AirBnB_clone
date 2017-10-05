@@ -38,9 +38,9 @@ class HBNBCommand(cmd.Cmd):
 
         classname = list_args[0]
         try:
-        	new_obj = eval(classname)()
-        	new_obj.save()
-        	print(new_obj.id)
+            new_obj = eval(classname)()
+            new_obj.save()
+            print(new_obj.id)
         except NameError:
             print("** class doesn't exist **")
 
