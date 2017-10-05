@@ -195,10 +195,8 @@ class HBNBCommand(cmd.Cmd):
             return False
         value = list_args[3]
 
-        cast_to_type = eval(classname).dict_attrs[attribute]
-
         if attribute not in ("id", "created_at", "updated_at"):
-            all_objs[key].__dict__[attribute] = cast_to_type(value)
+            all_objs[key].__dict__[attribute] = value
             all_objs[key].save
 
 if __name__ == '__main__':
