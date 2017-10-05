@@ -47,6 +47,7 @@ class HBNBCommand(cmd.Cmd):
     def default(self, args):
         ''' method: default
         default handles any command that do not parse to a defined method'''
+        original_args = args  # copy here???
         args = args.split(".")
         this_class = args[0]
         args = "".join(args[1:])
@@ -67,13 +68,19 @@ class HBNBCommand(cmd.Cmd):
         if len(these_args) == 0:
             print("len = 0")
             exe = ('self.do_{}(*{})'.format(this_func, these_args))
-            print(exe)
-            eval(exe)
+            try:
+                eval(exe)
+            except AttributeError:
+                super().default(original_args)
+                return False
         else:
-            print('len > 0')
+            # print('len > 0')
             exe = ("self.do_{}(*{})".format(this_func, these_args))
-            print(exe)
-            eval(exe)
+            try:
+                eval(exe)
+            except AttributeError:
+                super().default(original_args)
+                return False
 
     def do_show(self, args):
         """ show string representation of an instance """
