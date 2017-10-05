@@ -11,6 +11,8 @@ class BaseModel:
     '''class: BaseModel
     base model for AirBnB Clone
     '''
+    dict_attrs = {"id": str, "created_at": DT.datetime,
+                  "updated_at": DT.datetime}
 
     def __init__(self, *args, **kwargs):
         '''method: __init__
