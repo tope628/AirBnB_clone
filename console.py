@@ -9,6 +9,7 @@ from models.place import Place
 from models.review import Review
 from models.state import State
 from models.user import User
+classes = ["BaseModel", "User", "City", "Place", "State", "Ameni    ty", "Review"]
 
 
 class HBNBCommand(cmd.Cmd):
@@ -86,13 +87,12 @@ class HBNBCommand(cmd.Cmd):
         """ show string representation of an instance """
         list_args = args.split()
         all_objs = models.storage.all()
-        all_classes = models.storage.all_classes()
 
         if len(list_args) == 0:
             print("** class name missing **")
             return False
 
-        if list_args[0] in all_classes:
+        if list_args[0] in classes:
             if len(list_args) > 1:
                 key = list_args[0] + "." + list_args[1]
                 if key in all_objs:
@@ -111,13 +111,12 @@ class HBNBCommand(cmd.Cmd):
         '''
         list_args = args.split()
         all_objs = models.storage.all()
-        all_classes = models.storage.all_classes()
 
         if len(list_args) == 0:
             print("** class name missing **")
             return False
 
-        if list_args[0] in all_classes:
+        if list_args[0] in classes:
             if len(list_args) > 1:
                 key = list_args[0] + "." + list_args[1]
                 if key in all_objs:
