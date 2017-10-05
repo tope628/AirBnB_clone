@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ command module """
 import cmd
+import shlex
 import models
 from models.base_model import BaseModel
 from models.amenity import Amenity
@@ -14,7 +15,7 @@ classes = ["BaseModel", "User", "City", "Place", "State", "Amenity", "Review"]
 
 class HBNBCommand(cmd.Cmd):
     """ cmd class """
-    prompt = '(hbnb)'
+    prompt = '(hbnb) '
 
     def emptyline(self):
         """change empty line default behavior"""
@@ -48,40 +49,17 @@ class HBNBCommand(cmd.Cmd):
     def default(self, args):
         ''' method: default
         default handles any command that do not parse to a defined method'''
-        original_args = args  # copy here???
-        args = args.split(".")
-        this_class = args[0]
-        args = "".join(args[1:])
-        args = args.split("(")
-        this_func = args[0]
-        these_args = "".join(args[1:])  # these_args are all args that append
-        # ... to class, which is the 1st arg
-        these_args = these_args[:-1]  # strip off trailing closing parenthesis
-        these_args = these_args.split()
-        these_args.insert(0, this_class)
-        for arg in these_args:
-            arg = '''"''' + arg + '''"'''
-        arg_str = " ".join(these_args)
-        # print("arg_str: {}".format(arg_str))
-        # print("this_func: {}".format(this_func))
-        # print("these_args: {}".format(these_args))
-        # print("--------------")
-        if len(these_args) == 0:
-            print("len = 0")
-            exe = ('self.do_{}(*{})'.format(this_func, these_args))
-            try:
-                eval(exe)
-            except AttributeError:
-                super().default(original_args)
-                return False
-        else:
-            # print('len > 0')
-            exe = ("self.do_{}(*{})".format(this_func, these_args))
-            try:
-                eval(exe)
-            except AttributeError:
-                super().default(original_args)
-                return False
+        list_l = args.split(".")
+        classname = list_l[0]
+        arguments = shlex.split(list_l[1])
+        command = arguments[0].split("(")
+        arguments[0] = command[1]
+        modified_args = []
+        for item in arguments:
+            modified_args.append(item[:-1])
+        command = command[0]
+        string_exe = command + " " + classname + " " + " ".join(modified_args)
+        self.onecmd(string_exe)
 
     def do_show(self, args):
         """ show string representation of an instance """
