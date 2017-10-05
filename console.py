@@ -137,13 +137,12 @@ class HBNBCommand(cmd.Cmd):
         '''
         list_args = args.split()
 
-        all_classes = models.storage.all_classes()
         all_objs = models.storage.all()
 
         if len(list_args) > 1:
             print("**class doesn't exist **")
             return False
-        if len(list_args) != 0 and list_args[0] not in all_classes:
+        if len(list_args) != 0 and list_args[0] not in classes:
             print("** class doesn't exist **")
             return False
 
@@ -163,14 +162,13 @@ class HBNBCommand(cmd.Cmd):
         '''
         list_args = args.split()
         all_objs = models.storage.all()
-        all_classes = models.storage.all_classes()
 
         if len(list_args) == 0:
             print("** class name missing **")
             return False
 
         classname = list_args[0]
-        if classname not in all_classes:
+        if classname not in classes:
             print("** class doesn't exist **")
             return False
 
