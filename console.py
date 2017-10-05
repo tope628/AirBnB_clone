@@ -27,23 +27,53 @@ class HBNBCommand(cmd.Cmd):
         """Quit command to exit the program """
         return True
 
-    def do_create(self, args):
+    def do_create(self, *args):
         """create <class>
         creates new instance of type class
         """
-
-        list_args = args.split()
+        list_args = args[0].split()
         if len(list_args) == 0:
             print("** class name missing **")
             return False
 
         classname = list_args[0]
-        # try:
-        new_obj = eval(classname)()
-        new_obj.save()
-        print(new_obj.id)
-        # except NameError:
-        #     print("** class doesn't exist **")
+        try:
+        	new_obj = eval(classname)()
+        	new_obj.save()
+        	print(new_obj.id)
+        except NameError:
+            print("** class doesn't exist **")
+
+    def default(self, args):
+        ''' method: default
+        default handles any command that do not parse to a defined method'''
+        args = args.split(".")
+        this_class = args[0]
+        args = "".join(args[1:])
+        args = args.split("(")
+        this_func = args[0]
+        these_args = "".join(args[1:])  # these_args are all args that append
+        # ... to class, which is the 1st arg
+        these_args = these_args[:-1]  # strip off trailing closing parenthesis
+        these_args = these_args.split()
+        these_args.insert(0, this_class)
+        for arg in these_args:
+            arg = '''"''' + arg + '''"'''
+        arg_str = " ".join(these_args)
+        # print("arg_str: {}".format(arg_str))
+        # print("this_func: {}".format(this_func))
+        # print("these_args: {}".format(these_args))
+        # print("--------------")
+        if len(these_args) == 0:
+            print("len = 0")
+            exe = ('self.do_{}(*{})'.format(this_func, these_args))
+            print(exe)
+            eval(exe)
+        else:
+            print('len > 0')
+            exe = ("self.do_{}(*{})".format(this_func, these_args))
+            print(exe)
+            eval(exe)
 
     def default(self, args):
         ''' method: default
