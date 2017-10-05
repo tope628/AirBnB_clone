@@ -7,9 +7,8 @@ from models.base_model import BaseModel
 class Amenity(BaseModel):
     """ amenity class for airbnb clone """
     dict_attrs = {"name": str}
+    name = ""
 
     def __init__(self, *args, **kwargs):
         """initializes amenity for airbnb clone"""
-        if len(kwargs) == 0:
-            self.name = ""
         super().__init__(*args, **kwargs)
