@@ -6,7 +6,6 @@ from models.base_model import BaseModel
 
 class Amenity(BaseModel):
     """ amenity class for airbnb clone """
-    dict_attrs = {"name": str}
     name = ""
 
     def __init__(self, *args, **kwargs):

@@ -5,7 +5,6 @@ from models.base_model import BaseModel
 
 class City(BaseModel):
     """ city class for airbnb clone """
-    dict_attrs = {"state_id": str, "name": str}
     state_id = ""
     name = ""
 
