@@ -47,19 +47,17 @@ class HBNBCommand(cmd.Cmd):
         args = args.split("(")
         this_func = args[0]
         these_args = "".join(args[1:])  # these_args are all args that append
-                                        # to class, which is the 1st arg
+        # ... to class, which is the 1st arg
         these_args = these_args[:-1]  # strip off trailing closing parenthesis
         these_args = these_args.split()
         these_args.insert(0, this_class)
-        print ("------for loop---------")
         for arg in these_args:
             arg = '''"''' + arg + '''"'''
-            print(arg)
         arg_str = " ".join(these_args)
-        print("arg_str: {}".format(arg_str))
-        print("this_func: {}".format(this_func))
-        print("these_args: {}".format(these_args))
-        print("--------------")
+        # print("arg_str: {}".format(arg_str))
+        # print("this_func: {}".format(this_func))
+        # print("these_args: {}".format(these_args))
+        # print("--------------")
         if len(these_args) == 0:
             print("len = 0")
             exe = ('self.do_{}(*{})'.format(this_func, these_args))
@@ -70,7 +68,7 @@ class HBNBCommand(cmd.Cmd):
             exe = ("self.do_{}(*{})".format(this_func, these_args))
             print(exe)
             eval(exe)
-        
+
     def do_show(self, args):
         """ show string representation of an instance """
         list_args = args.split()
